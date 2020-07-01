@@ -4,7 +4,7 @@ type ThemeOptions = "light" | "dark"
 
 type ThemeContext = {
   theme: ThemeOptions
-  setTheme: (obj: { type: "toggle" }) => void
+  dispatchTheme: (obj: { type: "toggle" }) => void
 }
 
 type ThemeProviderProps = {
@@ -27,10 +27,10 @@ const reducer = (
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useReducer(reducer, "light")
+  const [theme, dispatchTheme] = useReducer(reducer, "light")
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, dispatchTheme }}>
       {children}
     </ThemeContext.Provider>
   )
