@@ -6,6 +6,7 @@ import { createMuiTheme, makeStyles } from "@material-ui/core/styles"
 import Form from "./components/Form"
 import HistoryTable from "./components/Table"
 import CoveStats from "./components/CoveStats"
+import { useHistory } from "./historyContext"
 
 const theme = createMuiTheme({
   palette: {
@@ -32,8 +33,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function FunctionalComp() {
-  // const { theme, dispatchTheme } = useTheme()!
   const classes = useStyles()
+  const { dispatchHistory } = useHistory()
+
+  const onFormSubmit = (desc: string, amount: number) =>
+    dispatchHistory({ type: "addItem", payload: { description: desc, amount } })
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,8 +45,8 @@ function FunctionalComp() {
       <Box component="div" className={classes.root}>
         <Container maxWidth="md">
           <CoveStats />
+          <Form onSubmit={onFormSubmit} />
           <HistoryTable />
-          <Form />
         </Container>
       </Box>
     </ThemeProvider>

@@ -1,12 +1,12 @@
 import React from "react"
-import { ThemeProvider } from "./themeContext"
+import { HistoryContextProvider } from "./historyContext"
 import FunctionalComp from "./FunctionalComp"
 
 function App() {
   return (
-    <ThemeProvider>
+    <HistoryContextProvider>
       <FunctionalComp />
-    </ThemeProvider>
+    </HistoryContextProvider>
   )
 }
 

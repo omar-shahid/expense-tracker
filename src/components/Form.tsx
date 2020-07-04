@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, FormEvent, ChangeEvent } from "react"
 import {
   Box,
   Grid,
@@ -8,10 +8,28 @@ import {
   Button,
 } from "@material-ui/core"
 
-function Form() {
+interface Props {
+  onSubmit: (desc: string, amount: number) => void
+}
+
+function Form({ onSubmit }: Props) {
+  const [desc, setDesc] = useState("")
+  const [amount, setAmount] = useState("")
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    onSubmit(desc, +amount)
+    setDesc("")
+    setAmount("")
+  }
+
+  const handleDescChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setDesc(e.target.value)
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setAmount(e.target.value)
   return (
-    <Box component="div" mb={5}>
-      <form noValidate autoComplete="off">
+    <Box component="div" mt={5}>
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={7}>
             <FormControl
@@ -23,8 +41,8 @@ function Form() {
               </InputLabel>
               <FilledInput
                 id="standard-adornment-amount"
-                // value={values.amount}
-                // onChange={handleChange("amount")}
+                value={desc}
+                onChange={handleDescChange}
               />
             </FormControl>
           </Grid>
@@ -38,14 +56,18 @@ function Form() {
               </InputLabel>
               <FilledInput
                 id="standard-adornment-amount"
-                type="number"
-                // value={values.amount}
-                // onChange={handleChange("amount")}
+                value={amount}
+                onChange={handleAmountChange}
               />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={1}>
-            <Button variant="contained" size="large" color="secondary">
+            <Button
+              variant="contained"
+              size="large"
+              color="secondary"
+              type="submit"
+            >
               Add
             </Button>
           </Grid>

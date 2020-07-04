@@ -1,19 +1,24 @@
 import React from "react"
 import { Paper, Typography, makeStyles } from "@material-ui/core"
 import { red } from "@material-ui/core/colors"
+import classnames from "classnames"
 
 interface Props {
   error?: boolean
   heading: string
   value: number
+  bg?: boolean
 }
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(1.6),
   },
   paper: {
     color: theme.palette.text.secondary,
+  },
+  bgSuccess: {
+    backgroundColor: "#00bfa5",
   },
   error: {
     color: red[600],
@@ -23,15 +28,28 @@ const useStyles = makeStyles((theme) => ({
     color: "#00bfa5",
     textAlign: "center",
   },
+  colorWhite: {
+    color: "#ffffff",
+  },
+  errorBg: {
+    backgroundColor: red[500],
+  },
 }))
 
-function MainStats({ error, heading, value }: Props) {
+function MainStats({ error, heading, value, bg }: Props) {
   const classes = useStyles()
   return (
-    <Paper className={classes.container}>
+    <Paper
+      className={classnames(
+        classes.container,
+        { [classes.bgSuccess]: bg },
+        { [classes.errorBg]: bg && Math.sign(value) === -1 }
+      )}
+      elevation={5}
+    >
       <Typography
         variant="h4"
-        className={classes.paper}
+        className={classnames(classes.paper, { [classes.colorWhite]: bg })}
         component="h2"
         gutterBottom
       >
@@ -39,7 +57,11 @@ function MainStats({ error, heading, value }: Props) {
       </Typography>
       <Typography
         variant="h3"
-        className={error ? classes.error : classes.success}
+        className={classnames(
+          { [classes.error]: error },
+          { [classes.success]: !error },
+          { [classes.colorWhite]: bg }
+        )}
         component="h3"
       >
         Rs {value}
