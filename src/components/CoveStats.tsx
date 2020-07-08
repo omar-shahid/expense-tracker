@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Grid, Typography, Container } from "@material-ui/core"
+import { Box, Grid, Typography } from "@material-ui/core"
 import MainStats from "./MainStats"
 import { useHistory } from "./../historyContext"
 
