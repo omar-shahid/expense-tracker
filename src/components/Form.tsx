@@ -25,8 +25,9 @@ function Form({ onSubmit }: Props) {
 
   const handleDescChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDesc(e.target.value)
-  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setAmount(e.target.value)
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value.replace(/[^-\d+]/g, ""))
+  }
   return (
     <Box component="div" mt={5}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
