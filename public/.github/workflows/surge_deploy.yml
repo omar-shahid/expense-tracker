@@ -1,0 +1,22 @@
+name: Deploy Website
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      - name: Installing dependencies
+        run: npm install
+      - name: Builiding Project
+        run: npm run build
+      - name: Install Surge
+        run: npm install -g surge
+      - name: Run surge
+        run: surge ./build expensetracker34563.surge.sh --token ${{ secrets.SURGE_TOKEN }}
